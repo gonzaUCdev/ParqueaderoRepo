@@ -35,6 +35,25 @@ public class SistemaDelCaso {
         return procesado;
     }
 
+    public boolean cancelarPendiente(String placa) {
+        VehiculoParqueadero buscado = new VehiculoParqueadero(placa, "", "", "");
+        Cola auxiliar = new Cola();
+        boolean cancelado = false;
+
+        while (!colaPendientes.esVacia()) {
+            VehiculoParqueadero actual = (VehiculoParqueadero) colaPendientes.desencolar();
+            if (!cancelado && actual.equals(buscado)) {
+                cancelado = true;
+            } else {
+                auxiliar.encolar(actual);
+            }
+        }
+        while (!auxiliar.esVacia()) {
+            colaPendientes.encolar(auxiliar.desencolar());
+        }
+        return cancelado;
+    }
+
     private void registrar() {
         System.out.print("Placa: ");
         String placa = teclado.nextLine().trim().toUpperCase();
@@ -97,6 +116,15 @@ public class SistemaDelCaso {
                     break;
                 case 5:
                     historialProcesados.mostrar();
+                    break;
+                case 7:
+                    System.out.print("Placa a cancelar: ");
+                    String placaCancelar = teclado.nextLine();
+                    if (cancelarPendiente(placaCancelar)) {
+                        System.out.println("Pendiente cancelado");
+                    } else {
+                        System.out.println("No esta en pendientes");
+                    }
                     break;
                 case 9:
                     System.out.println("Registrados: " + listaGeneral.cuentaElementos()
