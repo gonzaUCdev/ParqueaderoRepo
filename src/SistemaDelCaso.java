@@ -54,6 +54,20 @@ public class SistemaDelCaso {
         return cancelado;
     }
 
+    public VehiculoParqueadero deshacerUltimo() {
+        if (historialProcesados.esVacia()) {
+            return null;
+        }
+        VehiculoParqueadero ultimo = (VehiculoParqueadero) historialProcesados.desapilar();
+        colaPendientes.encolar(ultimo);
+        return ultimo;
+    }
+
+    public VehiculoParqueadero buscarPorPlaca(String placa) {
+        VehiculoParqueadero buscado = new VehiculoParqueadero(placa, "", "", "");
+        return (VehiculoParqueadero) listaGeneral.buscarDato(buscado);
+    }
+
     private void registrar() {
         System.out.print("Placa: ");
         String placa = teclado.nextLine().trim().toUpperCase();
@@ -124,6 +138,23 @@ public class SistemaDelCaso {
                         System.out.println("Pendiente cancelado");
                     } else {
                         System.out.println("No esta en pendientes");
+                    }
+                    break;
+                case 6:
+                    System.out.print("Placa a buscar: ");
+                    VehiculoParqueadero encontrado = buscarPorPlaca(teclado.nextLine());
+                    if (encontrado == null) {
+                        System.out.println("No se encontro ese vehiculo");
+                    } else {
+                        System.out.println("Encontrado: " + encontrado);
+                    }
+                    break;
+                case 8:
+                    VehiculoParqueadero deshecho = deshacerUltimo();
+                    if (deshecho == null) {
+                        System.out.println("No hay procesamientos para deshacer");
+                    } else {
+                        System.out.println("Deshecho, vuelve a pendientes: " + deshecho.getPlaca());
                     }
                     break;
                 case 9:
