@@ -87,6 +87,23 @@ public class Lista {
         return dato;
     }
 
+    public Object eliminarEnPosicion(int indice) {
+        if (indice < 0 || indice >= cantidad) {
+            throw new IndexOutOfBoundsException("Posicion no valida: " + indice);
+        }
+        if (indice == 0) {
+            return eliminarPrimero();
+        }
+        if (indice == cantidad - 1) {
+            return eliminarUltimo();
+        }
+        Nodo actual = nodoEn(indice);
+        actual.getAnterior().setSiguiente(actual.getSiguiente());
+        actual.getSiguiente().setAnterior(actual.getAnterior());
+        cantidad--;
+        return actual.getDato();
+    }
+
     private Nodo nodoEn(int indice) {
         Nodo actual;
         if (indice < cantidad / 2) {
