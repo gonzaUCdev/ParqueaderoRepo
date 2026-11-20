@@ -57,6 +57,36 @@ public class Lista {
         cantidad++;
     }
 
+    public Object eliminarPrimero() {
+        if (primero == null) {
+            return null;
+        }
+        Object dato = primero.getDato();
+        primero = primero.getSiguiente();
+        if (primero == null) {
+            ultimo = null;
+        } else {
+            primero.setAnterior(null);
+        }
+        cantidad--;
+        return dato;
+    }
+
+    public Object eliminarUltimo() {
+        if (ultimo == null) {
+            return null;
+        }
+        Object dato = ultimo.getDato();
+        ultimo = ultimo.getAnterior();
+        if (ultimo == null) {
+            primero = null;
+        } else {
+            ultimo.setSiguiente(null);
+        }
+        cantidad--;
+        return dato;
+    }
+
     private Nodo nodoEn(int indice) {
         Nodo actual;
         if (indice < cantidad / 2) {
