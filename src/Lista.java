@@ -148,7 +148,7 @@ public class Lista {
 
     public void mostrarAdelante() {
         Nodo actual = primero;
-        int pos = 0;
+        int pos = 1;
         while (actual != null) {
             System.out.println(pos + ". " + actual.getDato());
             actual = actual.getSiguiente();
@@ -158,7 +158,7 @@ public class Lista {
 
     public void mostrarAtras() {
         Nodo actual = ultimo;
-        int pos = cantidad - 1;
+        int pos = cantidad;
         while (actual != null) {
             System.out.println(pos + ". " + actual.getDato());
             actual = actual.getAnterior();
