@@ -104,6 +104,42 @@ public class Lista {
         return actual.getDato();
     }
 
+    public Object buscarDato(int indice) {
+        if (indice < 0 || indice >= cantidad) {
+            throw new IndexOutOfBoundsException("Posicion no valida: " + indice);
+        }
+        return nodoEn(indice).getDato();
+    }
+
+    public Object buscarDato(Object dato) {
+        int pos = posicionDe(dato);
+        if (pos == -1) {
+            return null;
+        }
+        return nodoEn(pos).getDato();
+    }
+
+    public boolean contiene(Object dato) {
+        return posicionDe(dato) != -1;
+    }
+
+    public int cuentaElementos() {
+        return cantidad;
+    }
+
+    private int posicionDe(Object dato) {
+        Nodo actual = primero;
+        int pos = 0;
+        while (actual != null) {
+            if (actual.getDato().equals(dato)) {
+                return pos;
+            }
+            actual = actual.getSiguiente();
+            pos++;
+        }
+        return -1;
+    }
+
     private Nodo nodoEn(int indice) {
         Nodo actual;
         if (indice < cantidad / 2) {
