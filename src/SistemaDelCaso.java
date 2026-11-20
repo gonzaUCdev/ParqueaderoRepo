@@ -69,12 +69,24 @@ public class SistemaDelCaso {
     }
 
     private void registrar() {
-        System.out.print("Placa: ");
+        System.out.print("Placa (ABC123 o ABC12D): ");
         String placa = teclado.nextLine().trim().toUpperCase();
+        if (!placa.matches("[A-Z]{3}[0-9]{2}[A-Z0-9]")) {
+            System.out.println("Placa no valida, no se registro");
+            return;
+        }
         System.out.print("Propietario: ");
         String propietario = teclado.nextLine().trim();
+        if (propietario.isEmpty()) {
+            System.out.println("El propietario no puede estar vacio");
+            return;
+        }
         System.out.print("Tipo (CARRO/MOTO): ");
         String tipo = teclado.nextLine().trim().toUpperCase();
+        if (!tipo.equals("CARRO") && !tipo.equals("MOTO")) {
+            System.out.println("Tipo no valido, debe ser CARRO o MOTO");
+            return;
+        }
         String hora = LocalTime.now().format(FORMATO_HORA);
 
         VehiculoParqueadero vehiculo = new VehiculoParqueadero(placa, propietario, tipo, hora);
@@ -100,12 +112,20 @@ public class SistemaDelCaso {
         System.out.println("10. Salir");
     }
 
+    private int leerOpcion() {
+        try {
+            return Integer.parseInt(teclado.nextLine().trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
     public void ejecutar() {
         int opcion = 0;
         while (opcion != 10) {
             mostrarMenu();
             System.out.print("Escoja una opcion: ");
-            opcion = Integer.parseInt(teclado.nextLine().trim());
+            opcion = leerOpcion();
             switch (opcion) {
                 case 1:
                     registrar();
