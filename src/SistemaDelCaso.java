@@ -26,6 +26,15 @@ public class SistemaDelCaso {
         return true;
     }
 
+    public VehiculoParqueadero procesarSiguiente() {
+        if (colaPendientes.esVacia()) {
+            return null;
+        }
+        VehiculoParqueadero procesado = (VehiculoParqueadero) colaPendientes.desencolar();
+        historialProcesados.apilar(procesado);
+        return procesado;
+    }
+
     private void registrar() {
         System.out.print("Placa: ");
         String placa = teclado.nextLine().trim().toUpperCase();
@@ -77,6 +86,17 @@ public class SistemaDelCaso {
                     break;
                 case 3:
                     colaPendientes.mostrar();
+                    break;
+                case 4:
+                    VehiculoParqueadero procesado = procesarSiguiente();
+                    if (procesado == null) {
+                        System.out.println("No hay vehiculos pendientes");
+                    } else {
+                        System.out.println("Procesado: " + procesado);
+                    }
+                    break;
+                case 5:
+                    historialProcesados.mostrar();
                     break;
                 case 9:
                     System.out.println("Registrados: " + listaGeneral.cuentaElementos()
