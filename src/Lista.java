@@ -140,6 +140,32 @@ public class Lista {
         return -1;
     }
 
+    public void limpiar() {
+        primero = null;
+        ultimo = null;
+        cantidad = 0;
+    }
+
+    public void mostrarAdelante() {
+        Nodo actual = primero;
+        int pos = 0;
+        while (actual != null) {
+            System.out.println(pos + ". " + actual.getDato());
+            actual = actual.getSiguiente();
+            pos++;
+        }
+    }
+
+    public void mostrarAtras() {
+        Nodo actual = ultimo;
+        int pos = cantidad - 1;
+        while (actual != null) {
+            System.out.println(pos + ". " + actual.getDato());
+            actual = actual.getAnterior();
+            pos--;
+        }
+    }
+
     private Nodo nodoEn(int indice) {
         Nodo actual;
         if (indice < cantidad / 2) {
